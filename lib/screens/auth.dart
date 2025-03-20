@@ -70,14 +70,14 @@ class _AuthScreenState extends State<AuthScreen> {
         // await storageRef.putFile(_selectedImage!);
         // final imageUrl = await storageRef.getDownloadURL();
 
-        // FirebaseFirestore.instance
-        //     .collection('users')
-        //     .doc(userCredentials.user!.uid)
-        //     .set({
-        //   'username': _enteredUsername,
-        //   'email': _enteredEmail,
-        //   'image_url': imageUrl,
-        // });
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredentials.user!.uid)
+            .set({
+          'username': _enteredUsername,
+          'email': _enteredEmail,
+          // 'image_url': imageUrl,
+        });
       } on FirebaseAuthException catch (error) {
         // if (error.code == 'email-already-in-use') {
         //   // handle error
