@@ -23,6 +23,7 @@ class _AuthScreenState extends State<AuthScreen> {
   bool _isLogin = true;
   String _enteredEmail = '';
   String _enteredPassword = '';
+  String _enteredUsername = '';
   File? _selectedImage = null;
   bool _isAuthenticating = false;
 
@@ -73,7 +74,7 @@ class _AuthScreenState extends State<AuthScreen> {
         //     .collection('users')
         //     .doc(userCredentials.user!.uid)
         //     .set({
-        //   'username': 'tbd',
+        //   'username': _enteredUsername,
         //   'email': _enteredEmail,
         //   'image_url': imageUrl,
         // });
@@ -127,6 +128,23 @@ class _AuthScreenState extends State<AuthScreen> {
                             UserImagePicker(
                               onPickImage: (pickedImage) {
                                 _selectedImage = pickedImage;
+                              },
+                            ),
+                          if (!_isLogin)
+                            TextFormField(
+                              decoration:
+                                  const InputDecoration(labelText: 'Username'),
+                              enableSuggestions: false,
+                              validator: (value) {
+                                if (value == null ||
+                                    value.isEmpty ||
+                                    value.trim().length < 4) {
+                                  return 'Please enter at least 4 characters';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                _enteredUsername = value!;
                               },
                             ),
                           TextFormField(
